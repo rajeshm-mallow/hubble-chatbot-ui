@@ -1,0 +1,16 @@
+<%# message: Message instance %>
+<div class="mb-4 flex <%= message.from_llm ? 'justify-start' : 'justify-end' %>">
+  <div class="max-w-[75%]">
+    <% if message.from_llm %>
+      <div class="bg-slate-100 rounded-lg p-3 shadow">
+        <div class="text-sm text-slate-600"><%= message.content %></div>
+        <div class="text-xs text-slate-400 mt-2"><%= message.created_at.strftime("%-I:%M %p") %></div>
+      </div>
+    <% else %>
+      <div class="bg-indigo-600 text-white rounded-lg p-3 shadow">
+        <div class="text-sm"><%= message.content %></div>
+        <div class="text-xs text-indigo-200 mt-2 text-right"><%= message.created_at.strftime("%-I:%M %p") %></div>
+      </div>
+    <% end %>
+  </div>
+</div>

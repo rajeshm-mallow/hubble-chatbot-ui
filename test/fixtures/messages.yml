@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  chat_session: one
+  user: one
+  content: MyText
+  role: MyString
+  from_llm: false
+
+two:
+  chat_session: two
+  user: two
+  content: MyText
+  role: MyString
+  from_llm: false

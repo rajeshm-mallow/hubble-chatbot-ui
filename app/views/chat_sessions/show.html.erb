@@ -1,0 +1,36 @@
+<div class="grid grid-cols-12 gap-6">
+  <aside class="col-span-3">
+    <div class="bg-white shadow rounded p-4">
+      <h3 class="font-semibold mb-3">Conversations</h3>
+      <%= link_to "New chat", chats_path, class: "block text-indigo-600" %>
+      <% current_user.chat_sessions.order(updated_at: :desc).each do |c| %>
+        <%= link_to c.title.presence || "Untitled", chat_path(c),
+                    class: "block py-2 px-2 rounded hover:bg-slate-50 #{c == @chat_session ? 'bg-slate-100' : ''}" %>
+      <% end %>
+    </div>
+  </aside>
+
+  <section class="col-span-9 flex flex-col h-[70vh]">
+    <div class="bg-gradient-to-r from-white to-slate-50 rounded-t-xl p-4 shadow">
+      <h2 class="text-xl font-bold"><%= @chat_session.title || "Chat" %></h2>
+    </div>
+
+    <div class="flex-1 overflow-auto bg-white p-6 border border-t-0 rounded-b-xl" id="chat_area">
+      <div id="messages_<%= @chat_session.id %>" data-controller="autoscroll">
+        <%= render partial: 'messages/message', collection: @messages, as: :message %>
+      </div>
+    </div>
+
+    <div class="mt-4">
+      <%= turbo_frame_tag dom_id(@chat_session, :input) do %>
+        <%= form_with url: messages_chat_path(@chat_session), method: :post, data: { controller: 'chat', action: 'submit->chat#send' }, local: false do |f| %>
+          <div class="flex items-end gap-3">
+            <textarea id="chat_input_<%= @chat_session.id %>" name="message[content]" rows="1" data-chat-target="input" class="flex-1 p-3 rounded-lg border resize-none" placeholder="Type your message..."></textarea>
+            <button data-action="click->chat#send" class="bg-indigo-600 text-white px-4 py-2 rounded-lg">Send</button>
+          </div>
+          <div data-chat-target="status" class="mt-2 text-sm text-slate-500"></div>
+        <% end %>
+      <% end %>
+    </div>
+  </section>
+</div>
