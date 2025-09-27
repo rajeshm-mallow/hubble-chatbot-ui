@@ -128,7 +128,7 @@ export default class extends Controller {
       }
 
       const data = await response.json()
-      this.addMessage(data.response || data.message || 'Sorry, I could not get a response.', 'assistant')
+      this.addMessage(data.message || 'Sorry, I could not get a response.', 'assistant')
     } catch (error) {
       console.error("Error sending message to backend:", error)
       this.addMessage("Sorry, I'm having trouble connecting to the AI. Please try again.", 'assistant')
