@@ -120,11 +120,7 @@ export default class extends Controller {
           'X-Chat-Session-Id': this.chatSessionId,
           'Origin': window.location.origin
         },
-        body: JSON.stringify({
-          message: message,
-          email: this.email,
-          conversation_history: this.messages.map(m => ({ role: m.role, content: m.content }))
-        })
+        body: JSON.stringify({ query: message })
       })
 
       if (!response.ok) {
