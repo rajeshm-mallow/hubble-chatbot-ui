@@ -9,7 +9,8 @@ export default class extends Controller {
     this.jwtToken = null
     this.email = this.userEmailValue
     this.isTyping = false
-    
+
+    this.chatSessionId = crypto.randomUUID()
     this.loadJwtToken()
     this.updateSendButton()
     this.setupAutoResize()
@@ -106,15 +107,18 @@ export default class extends Controller {
     this.scrollToBottom()
   }
 
+
   async sendToPythonBackend(message) {
     this.showTyping()
     
     try {
-      const response = await fetch(this.backendUrlValue + '/chat', {
+      const response = await fetch(this.backendUrlValue + '/api/v1/chat', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': `Bearer ${this.jwtToken}`
+          'Authorization': `Bearer ${this.jwtToken}`,
+          'X-Chat-Session-Id': this.chatSessionId,
+          'Origin': window.location.origin
         },
         body: JSON.stringify({
           message: message,
