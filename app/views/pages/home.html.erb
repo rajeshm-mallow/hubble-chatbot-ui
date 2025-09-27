@@ -56,13 +56,13 @@
             <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
             <div class="w-2 h-2 bg-gray-400 rounded-full typing-dot"></div>
           </div>
-          <span class="text-sm">AI is typing...</span>
+          <span class="text-sm">Processing...</span>
         </div>
       </div>
 
       <!-- Message Input Form -->
-      <form data-action="submit->chat#sendMessage" class="flex items-end space-x-3">
-        <div class="flex-1 relative">
+      <form data-action="submit->chat#sendMessage" class="flex items-end space-x-3" style="display: flex;justify-content: center;align-items: center;">
+        <div class="flex-1 relative" style="display: flex;">
           <textarea
             data-chat-target="messageInput"
             placeholder="Type your message..."
